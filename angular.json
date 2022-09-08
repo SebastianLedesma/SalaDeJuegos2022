@@ -98,6 +98,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "SalaDeJuegos:build:production",
+            "firebaseProject": "saladejuegos-4d7d0",
+            "firebaseHostingSite": "saladejuegos-4d7d0"
+          }
         }
       }
     }
