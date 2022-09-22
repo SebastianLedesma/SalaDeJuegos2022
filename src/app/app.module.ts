@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { ChatComponent } from './componentes/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     HomeComponent,
     QuienSoyComponent,
     RegistroComponent,
-    NavbarComponent
+    NavbarComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
