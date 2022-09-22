@@ -1,0 +1,20 @@
+<div>
+    <div class="table-wrapper">
+        <div class="row" *ngFor="let mensaje of mensajes;">
+            <strong>{{ mensaje.usuario }} dijo el {{ mensaje.fecha.toDate() | date:'dd/MM/yyyy h:mm' }}</strong>
+            <p>{{ mensaje.texto }}</p>
+        </div>
+    </div>
+    
+    <hr>
+    
+    <div class="row g-3">
+        <div class="col-auto">
+            <label for="texto" class="visually-hidden">Password</label>
+            <input type="text" class="form-control" id="texto" name="texto" [(ngModel)]="texto" placeholder="Comente aquí">
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" (click)="publicarMensaje()">Comentar</button>
+        </div>
+    </div>
+</div>
