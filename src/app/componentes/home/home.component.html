@@ -1,19 +1,21 @@
-
 <app-navbar></app-navbar>
 
+<br>
 <div class="container">
     <div class="row">
         <div class="col">
             <div>
-                <h1>Sala de juegos</h1>
+                <h1 class="text-white">Sala de juegos</h1>
             </div>
         </div>
     </div>
 
     <div>
         <div class="row">
-            <div class="col-8 border border-dark"></div>
-            <div class="col-4 bg-white border border-dark">
+            <div class="col-8 border border-light">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="col-4 bg-white border border-light">
                 <app-chat></app-chat>
             </div>
         </div>
