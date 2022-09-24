@@ -15,6 +15,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { ChatComponent } from './componentes/chat/chat.component';
+import { HomeModule } from './componentes/home/home.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ChatComponent } from './componentes/chat/chat.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    FormsModule
+    FormsModule,
+    HomeModule
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
