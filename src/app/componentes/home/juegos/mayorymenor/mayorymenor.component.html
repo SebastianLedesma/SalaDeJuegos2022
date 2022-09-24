@@ -1,0 +1,44 @@
+
+<h2 class="text-white">Adivina si la carta es mayor o menor</h2>
+
+<div *ngIf="mensaje.length > 0" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Fin!</strong>{{ mensaje }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div *ngIf="cartaEnPantalla ;else juegoNoIniciado" class="row">
+      <div class="col-8">
+        <div class="card mb-3" style="max-width: 540px;">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img [src]="cartaEnPantalla.images.png" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Carta</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{ cartaEnPantalla.value }} de {{ cartaEnPantalla.suit }}</li>
+                </ul>
+              </div>
+              <div class="card-body" [ngStyle]="{'display':display}">
+                <a class="btn btn-info" (click)="pedirCarta('mayor')">Mayor</a>
+                <a class="btn btn-danger" (click)="pedirCarta('menor')">Menor</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-white col-3">
+        <span class="text-white">Aciertos: {{ nroAciertos }}</span>
+      </div>
+
+      <div *ngIf="!continuaJuego" class="row">
+        <button class="btn btn-warning" (click)="empezarJuego()">Jugar otra vez</button>
+      </div>
+</div>
+
+<ng-template #juegoNoIniciado>
+    <button class="btn btn-outline-warning" (click)="empezarJuego()">Jugar</button>
+</ng-template>
+
