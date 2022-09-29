@@ -18,11 +18,6 @@ const routes: Routes = [
     loadChildren:() => import('./componentes/home/home.module').then(m => m.HomeModule)
   },
   {
-    path:'quien-soy',
-    component:QuienSoyComponent,
-    pathMatch:'full'
-  },
-  {
     path:'registro',
     component: RegistroComponent
   },

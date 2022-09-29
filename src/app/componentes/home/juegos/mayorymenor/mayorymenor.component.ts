@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CartasService } from '../cartas.service';
+import { CartasService } from './services/cartas.service';
 import { Card, Carta } from './interface/carta.interface';
 
 @Component({

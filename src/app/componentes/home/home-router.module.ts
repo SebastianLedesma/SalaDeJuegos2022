@@ -4,19 +4,35 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { MayorymenorComponent } from './juegos/mayorymenor/mayorymenor.component';
 import { AhorcadoComponent } from './juegos/ahorcado/ahorcado.component';
+import { EncuentraElFantasmaComponent } from './juegos/encuentra-el-fantasma/encuentra-el-fantasma.component';
+import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
+import { QuienSoyComponent } from '../quien-soy/quien-soy.component';
 
-const routes:Routes =[
+const routes: Routes = [
   {
-    path:'',
-    component:HomeComponent,
-    children:[
+    path: '',
+    component: HomeComponent,
+    children: [
       {
-        path:'mayorymenor',
-        component:MayorymenorComponent
+        path: 'mayorymenor',
+        component: MayorymenorComponent
       },
       {
-        path:'ahorcado',
-        component:AhorcadoComponent
+        path: 'ahorcado',
+        component: AhorcadoComponent
+      },
+      {
+        path: 'encuentra-fantasma',
+        component: EncuentraElFantasmaComponent
+      },
+      {
+        path: 'preguntado',
+        component: PreguntadoComponent
+      },
+      {
+        path: 'quien-soy',
+        component: QuienSoyComponent,
+        pathMatch: 'full'
       }
     ]
   }
@@ -24,7 +40,7 @@ const routes:Routes =[
 
 @NgModule({
   declarations: [],
-  exports:[
+  exports: [
     RouterModule
   ],
   imports: [
