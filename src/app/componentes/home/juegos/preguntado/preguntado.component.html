@@ -1,0 +1,40 @@
+<h3 class="text-white">Responde correctamente la mayor cantidad de respuestas posibles.</h3>
+
+<div class="mb-3 fondo" *ngIf="juegoIniciado; else juegoNoIniciado">
+
+    <div *ngIf="mensaje.length > 0" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Fin!</strong> {{ mensaje }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="row">
+        <div class="row">
+            <div class="col-10 text-center mx-auto">
+                <img class="img-fluid" [src]="imagenPath" alt="Imagen para adivinar el personaje.">
+            </div>
+            <p class="text-white text-center"><strong>¿Cómo se llama este personaje o a que refiere esta imagen?</strong></p>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-8 mx-auto div-botones">
+                <button class="btn btn-light btn-lg mx-1 mt-1" *ngFor="let boton of arrayDeBotones" (click)="verRespuesta(boton)">{{ boton }}</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="border border-white col-6 mt-2 mx-auto text-white text-center">
+                <strong>Aciertos: {{ aciertos }}</strong>
+            </div>
+        </div>
+        
+        <div *ngIf="!rondaIniciada">
+            <div class="d-grid gap-2 col-6 mx-auto mt-2">
+                <button (click)="empezarJuego()" class="btn btn-danger">Jugar otra vez</button>
+              </div>
+        </div>
+        
+    </div>
+</div>
+
+<ng-template #juegoNoIniciado>
+    <button class="btn btn-outline-warning bnt-" (click)="empezarJuego()">Jugar</button>
+</ng-template>
