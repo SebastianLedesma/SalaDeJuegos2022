@@ -1,0 +1,98 @@
+<h4 class="text-white mb-2">Ayudanos a mejorar.Respondé la encuesta para mejorar la sala.</h4>
+
+<div class="row-md-9">
+    <form class="row g-3 text-white" [formGroup]="formulario" (ngSubmit)="enviar()">
+        <div class="col-md-5">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" formControlName="nombre">
+            <small class="invalid text-warning" *ngIf="formulario.controls['nombre'].errors?.['required'] &&
+          formulario.controls['nombre'].touched">
+                El nombre es requerido
+            </small>
+        </div>
+        <div class="col-md-5">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" formControlName="apellido">
+            <small class="invalid text-warning" *ngIf="formulario.controls['apellido'].errors?.['required'] &&
+          formulario.controls['apellido'].touched">
+                El apellido es requerido
+            </small>
+        </div>
+        <div class="col-md-5">
+            <label for="edad" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="edad" formControlName="edad">
+            <small class="invalid text-warning" *ngIf="formulario.controls['edad'].errors?.['required'] &&
+            formulario.controls['edad'].touched">
+                La edad es requerida
+            </small>
+            <small class="invalid text-warning" *ngIf="formulario.controls['edad'].errors?.['min'] || 
+            formulario.controls['edad'].errors?.['max'] &&
+            formulario.controls['edad'].touched">
+                La edad debe ser de 18 a 99 años
+            </small>
+        </div>
+        <div class="col-md-5">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+            <small class="invalid text-warning" *ngIf="formulario.controls['telefono'].errors?.['required'] &&
+          formulario.controls['telefono'].touched">
+                El teléfono es requerido
+            </small>
+            <small class="invalid text-warning" *ngIf="formulario.controls['telefono'].hasError('maxlength') && formulario.controls['telefono'].touched">
+                El teléfono solo puede tener 10 dígitos
+            </small>
+            <small class="invalid text-warning" *ngIf="formulario.controls['telefono'].errors?.['pattern'] &&
+          formulario.controls['telefono'].touched">
+                Solo puede ingresar números
+            </small>
+        </div>
+        <div class="col-md-5">
+            <label for="mejoras" class="form-label">¿Qué mejoras le harías a la sala?</label>
+            <select class="form-select" id="mejoras" formControlName="mejoras">
+                <option value="">Seleccione uno</option>
+                <option value="colores">Colores</option>
+                <option value="disenio">Diseño</option>
+                <option value="jugabilidad">Jugabilidad</option>
+                <option value="agregar juegos">Agregar juegos</option>
+            </select>
+            <small class="invalid text-warning" *ngIf="formulario.controls['mejoras'].errors?.['required'] &&
+          formulario.controls['mejoras'].touched">
+                Seleccione una opción
+            </small>
+        </div>
+        <fieldset class="row mb-3">
+            <div class="row">
+                <label>¿Recomendarías esta página a otros?</label>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recomendacion" id="si" value="si"
+                        formControlName="recomendacion">
+                    <label class="form-check-label" for="si">
+                        Si
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="recomendacion" id="no" value="no"
+                        formControlName="recomendacion">
+                    <label class="form-check-label" for="no">
+                        No
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <div class="col-sm-4">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="novedades" formControlName="novedades">
+                <label for="novedades" class="form-check-label" for="novedades">
+                    Quiero recibir notificaciones sobre novedades de la sala de juegos!
+                </label>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <button [disabled]="formulario.invalid" type="submit" class="btn btn-primary" id="btn-encuesta">Enviar</button>
+        </div>
+    </form>
+</div>
