@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegistroPuntaje } from '../interfaces/registro-puntaje';
+import { RegistroPuntajeService } from '../services/registro-puntaje.service';
 
 import { LetraBoton } from './interface/letra-boton.interface';
 import { AhorcadoService } from './services/ahorcado.service';
@@ -21,13 +23,24 @@ export class AhorcadoComponent implements OnInit {
   letrasDeBotones: Array<LetraBoton> = [];
   mensaje: string = '';
   caracterOculto = "_";
+  rondasJugadas:number=0;
 
   juegoIniciado: boolean = false;
   rondaIniciada = false;
 
-  constructor(private palabrasService: AhorcadoService) { }
+  puntajes:RegistroPuntaje[]=[];
+  registroAMostrar?:RegistroPuntaje;
+
+  constructor(private palabrasService: AhorcadoService,private _regPuntajeService:RegistroPuntajeService) { }
 
   ngOnInit(): void {
+    this._regPuntajeService.obtenerPuntajesPorJuego('ahorcado')
+    .then( (registros: RegistroPuntaje[]) => {
+      this.puntajes = registros;
+      this.puntajes = this.puntajes.sort((a:any,b:any) => b.puntaje - a.puntaje);
+      this.registroAMostrar = this.puntajes[0];
+    })
+    this.rondasJugadas=0;
   }
 
 
@@ -96,7 +109,6 @@ export class AhorcadoComponent implements OnInit {
       escondida.push(letraEscondida);
     }
     this.palabraEscondida = escondida;
-    console.log(this.palabraEscondida);
   }
 
 
@@ -122,11 +134,13 @@ export class AhorcadoComponent implements OnInit {
   verAvanceDeJuego() {
     if (this.ganaJuego()) {
       this.mensaje = `Ganaste!!! La palabra era ${this.obtenerPalabraEscondida()}.`;
+      this.rondasJugadas++;
       this.cerrarJuego();
     }
 
     if (this.pierdeJuego()) {
       this.mensaje = `Perdiste.La palabra era ${this.obtenerPalabraEscondida()}.`;
+      this._regPuntajeService.agregarRegistro(this.rondasJugadas,'ahorcado');
       this.cerrarJuego();
     }
   }
@@ -175,6 +189,12 @@ export class AhorcadoComponent implements OnInit {
   cerrarJuego() {
     this.rondaIniciada = false;
     this.setearBotones(true);
+  }
+
+  terminarJuego(){
+    this.cerrarJuego();
+    this.mensaje='Se guardó tu puntuación.';
+    this._regPuntajeService.agregarRegistro(this.rondasJugadas,'ahorcado');
   }
 
 }

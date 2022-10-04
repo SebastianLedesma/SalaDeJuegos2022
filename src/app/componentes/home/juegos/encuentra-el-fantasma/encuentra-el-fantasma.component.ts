@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RegistroPuntaje } from '../interfaces/registro-puntaje';
+import { RegistroPuntajeService } from '../services/registro-puntaje.service';
 
 @Component({
   selector: 'app-encuentra-el-fantasma',
@@ -17,9 +19,18 @@ export class EncuentraElFantasmaComponent implements OnInit {
   rondaIniciada:boolean=false;
   pistasEnPantalla:string[]=[];
 
-  constructor() { }
+  puntajes:RegistroPuntaje[]=[];
+  registroAMostrar?:RegistroPuntaje;
+
+  constructor(private _regPuntajeService:RegistroPuntajeService) { }
 
   ngOnInit(): void {
+    this._regPuntajeService.obtenerPuntajesPorJuego('encuentra el fantasma')
+    .then( (registros: RegistroPuntaje[]) => {
+      this.puntajes = registros;
+      this.puntajes = this.puntajes.sort((a:any,b:any) => a.puntaje - b.puntaje);
+      this.registroAMostrar = this.puntajes[0];
+    })
   }
 
   empezarJuego(){
@@ -96,14 +107,13 @@ export class EncuentraElFantasmaComponent implements OnInit {
     this.cantidadClicks++;
     let distancia:number = this.obtenerDistancia(puntoClick,puntoTesoro);
 
-    console.log('distancia:',distancia);
-
     let pista:string = this.obtenerMensajeSegunDistancia(distancia);
 
     console.log(pista);
     if(distancia < 15){
       this.mensaje = `Encontraste el fantasma en ${this.cantidadClicks} clicks.`;
       this.rondaIniciada=false;
+      this._regPuntajeService.agregarRegistro(this.cantidadClicks,'encuentra el fantasma');
     }else{
       if(this.pistasEnPantalla.length == 14){
         this.pistasEnPantalla.shift();

@@ -1,4 +1,14 @@
-<h3 class="text-white">Hacé click en la imagen para encontrar al fantasma en el menor número de intentos posibles.</h3>
+<p class="text-white">Hacé click en la imagen para encontrar al fantasma en el menor número de intentos posibles.</p>
+
+<p *ngIf="puntajes.length > 0;else nuncaJugado" class="text-white">
+    <strong>Mejor puntaje: {{ registroAMostrar!.puntaje }} aciertos
+        <br>
+        Usuario: {{ registroAMostrar!.usuario }}</strong>
+</p>
+
+<ng-template #nuncaJugado>
+    <p class="text-white">No hay marcas para este juego.</p>
+</ng-template>
 
 <div class="mb-3 fondo" *ngIf="juegoIniciado; else juegoNoIniciado">
 
@@ -9,11 +19,12 @@
 
     <div class="row">
         <div class="col-8 text-center">
-            <img class="img-fluid" src="./assets/busqueda-fantasma/halloween.jpg" alt="Imagen con personajes de terror." (click)="obtenerClick($event)">
+            <img class="img-fluid" src="./assets/busqueda-fantasma/halloween.jpg" alt="Imagen con personajes de terror."
+                (click)="obtenerClick($event)">
         </div>
 
         <div class="border border-white col-3 div-wrapper">
-            <p class="text-white">Pista: 
+            <p class="text-white">Pista:
                 <br>
                 <span *ngFor="let pista of pistasEnPantalla">
                     . {{ pista }} <br>
@@ -21,13 +32,13 @@
             </p>
         </div>
 
-        
+
         <div *ngIf="!rondaIniciada">
             <div class="d-grid gap-2 col-6 mx-auto mt-2">
                 <button (click)="empezarJuego()" class="btn btn-danger">Jugar otra vez</button>
-              </div>
+            </div>
         </div>
-        
+
     </div>
 </div>
 

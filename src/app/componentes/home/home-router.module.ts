@@ -7,6 +7,7 @@ import { AhorcadoComponent } from './juegos/ahorcado/ahorcado.component';
 import { EncuentraElFantasmaComponent } from './juegos/encuentra-el-fantasma/encuentra-el-fantasma.component';
 import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
 import { QuienSoyComponent } from '../quien-soy/quien-soy.component';
+import { EncuestaComponent } from './encuesta/encuesta.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
         path: 'quien-soy',
         component: QuienSoyComponent,
         pathMatch: 'full'
+      },
+      {
+        path:'encuesta',
+        component: EncuestaComponent
       }
     ]
   }

@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartasService } from './services/cartas.service';
 import { Card, Carta } from './interface/carta.interface';
+import { RegistroPuntajeService } from '../services/registro-puntaje.service';
+import { RegistroPuntaje } from '../interfaces/registro-puntaje';
 
 @Component({
   selector: 'app-mayorymenor',
   templateUrl: './mayorymenor.component.html',
   styleUrls: ['./mayorymenor.component.css']
 })
-export class MayorymenorComponent {
+export class MayorymenorComponent implements OnInit {
 
   cartaEnPantalla?: Card;
   siguienteCarta?: Card;
@@ -16,7 +18,21 @@ export class MayorymenorComponent {
   mensaje: string = '';
   display: string = '';
 
-  constructor(private _cartaService: CartasService) { }
+  puntajes:RegistroPuntaje[]=[];
+  registroAMostrar?:RegistroPuntaje;
+
+  constructor(private _cartaService: CartasService, private _regPuntajeService:RegistroPuntajeService) { }
+
+
+  ngOnInit(): void {
+    
+    this._regPuntajeService.obtenerPuntajesPorJuego('mayor y menor')
+    .then( (registros: RegistroPuntaje[]) => {
+      this.puntajes = registros;
+      this.puntajes = this.puntajes.sort((a:any,b:any) => b.puntaje - a.puntaje);
+      this.registroAMostrar = this.puntajes[0];
+    })
+  }
 
   empezarJuego() {
     this.display = 'block';
@@ -38,16 +54,19 @@ export class MayorymenorComponent {
     const nroCartaSiguiente = this.convertirNroDeCarta(valorDeCartaSiguiente!);
 
     if (nroCartaActual == nroCartaSiguiente) {
-      //this.verificarResultado(eleccion);
+     
       this.pedirCarta(eleccion);
     } else {
       if ((nroCartaSiguiente > nroCartaActual && eleccion == 'mayor') || (nroCartaSiguiente < nroCartaActual && eleccion == 'menor')) {
         this.nroAciertos++;
         this.cartaEnPantalla = this.siguienteCarta!;
-        console.log('continua');
+        //console.log('continua');
       } else {
         this.cartaEnPantalla = this.siguienteCarta!;
-        console.log('perdio');
+
+
+        this._regPuntajeService.agregarRegistro(this.nroAciertos,'mayor y menor');
+        //console.log('perdio');
         this.cerrarJuego();
       }
     }
@@ -95,14 +114,15 @@ export class MayorymenorComponent {
         valorNumerico = parseInt(valor);
         break;
     }
-    console.log('convriete:', valorNumerico);
     return valorNumerico;
   }
+
 
   cerrarJuego() {
     this.continuaJuego = false;
     this.mensaje = `Tu puntucación es ${this.nroAciertos}.`;
     this.display = 'none'
   }
+
 
 }

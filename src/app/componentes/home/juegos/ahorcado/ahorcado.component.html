@@ -1,4 +1,14 @@
-<h3 class="text-white">Encuentra la palabra escondida.</h3>
+<p class="text-white">Encuentra la palabra escondida.</p>
+
+<p *ngIf="puntajes.length > 0;else nuncaJugado" class="text-white">
+    <strong>Mejor puntaje: {{ registroAMostrar!.puntaje }} aciertos
+        <br>
+        Usuario: {{ registroAMostrar!.usuario }}</strong>
+</p>
+
+<ng-template #nuncaJugado>
+    <p class="text-white">No hay marcas para este juego.</p>
+</ng-template>
 
 <div class="mb-3 fondo" *ngIf="juegoIniciado; else juegoNoIniciado">
 
@@ -20,12 +30,16 @@
                 (click)="adivinarLetra(letra.caracter)" class="btn btn-primary m-1 btn-lg">{{ letra.caracter }}</button>
         </div>
 
+        <div class="col-12 text-center">
+            <button (click)="terminarJuego()" [disabled]="!rondaIniciada" class="btn btn-primary m-1 btn-lg">Terminar</button>
+        </div>
+
         <div *ngIf="!rondaIniciada">
             <div class="d-grid gap-2 col-6 mx-auto">
                 <button (click)="empezarJuego()" class="btn btn-danger">Jugar otra vez</button>
-              </div>
+            </div>
         </div>
-        
+
     </div>
 </div>
 

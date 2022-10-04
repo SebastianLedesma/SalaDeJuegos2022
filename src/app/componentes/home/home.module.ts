@@ -7,6 +7,8 @@ import { HomeRouterModule } from './home-router.module';
 import { AhorcadoComponent } from './juegos/ahorcado/ahorcado.component';
 import { EncuentraElFantasmaComponent } from './juegos/encuentra-el-fantasma/encuentra-el-fantasma.component';
 import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
+import { EncuestaComponent } from './encuesta/encuesta.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,12 +17,14 @@ import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
     MayorymenorComponent,
     AhorcadoComponent,
     EncuentraElFantasmaComponent,
-    PreguntadoComponent
+    PreguntadoComponent,
+    EncuestaComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
-    HomeRouterModule
+    HomeRouterModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

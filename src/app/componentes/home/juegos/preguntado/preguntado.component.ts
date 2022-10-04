@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonajeService } from './services/personaje.service';
 import { Result } from './interface/personaje.interface';
+import { RegistroPuntajeService } from '../services/registro-puntaje.service';
+import { RegistroPuntaje } from '../interfaces/registro-puntaje';
 
 
 
@@ -20,9 +22,19 @@ export class PreguntadoComponent implements OnInit {
   arrayDeBotones: string[] = [];
   aciertos:number=0;
 
-  constructor(private _personajeService: PersonajeService) { }
+  puntajes:RegistroPuntaje[]=[];
+  registroAMostrar?:RegistroPuntaje;
+
+  constructor(private _personajeService: PersonajeService,private _regPuntajeService:RegistroPuntajeService) { }
 
   ngOnInit(): void {
+
+    this._regPuntajeService.obtenerPuntajesPorJuego('preguntado')
+    .then( (registros: RegistroPuntaje[]) => {
+      this.puntajes = registros;
+      this.puntajes = this.puntajes.sort((a:any,b:any) => b.puntaje - a.puntaje);
+      this.registroAMostrar = this.puntajes[0];
+    })
   }
 
   empezarJuego():void {
@@ -69,6 +81,7 @@ export class PreguntadoComponent implements OnInit {
         this.obtenerListadoPersonajes();
       } else {
         this.mensaje = `La respuesta era  ${this.personaje?.name}. Aciertos: ${this.aciertos}.`;
+        this._regPuntajeService.agregarRegistro(this.aciertos,'preguntado');
         this.rondaIniciada=false;
       }
     }

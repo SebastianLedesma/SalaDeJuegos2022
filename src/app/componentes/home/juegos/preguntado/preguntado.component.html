@@ -1,4 +1,15 @@
-<h3 class="text-white">Responde correctamente la mayor cantidad de respuestas posibles.</h3>
+<p class="text-white">Responde correctamente la mayor cantidad de respuestas posibles.</p>
+
+<p *ngIf="puntajes.length > 0;else nuncaJugado" class="text-white">
+    <strong>Mejor puntaje: {{ registroAMostrar!.puntaje }} aciertos
+        <br>
+        Usuario: {{ registroAMostrar!.usuario }}</strong>
+</p>
+
+<ng-template #nuncaJugado class="text-white">
+    No hay marcas para este juego
+</ng-template>
+
 
 <div class="mb-3 fondo" *ngIf="juegoIniciado; else juegoNoIniciado">
 
@@ -12,11 +23,13 @@
             <div class="col-10 text-center mx-auto">
                 <img class="img-fluid" [src]="imagenPath" alt="Imagen para adivinar el personaje.">
             </div>
-            <p class="text-white text-center"><strong>¿Cómo se llama este personaje o a que refiere esta imagen?</strong></p>
+            <p class="text-white text-center"><strong>¿Cómo se llama este personaje o a que refiere esta
+                    imagen?</strong></p>
         </div>
         <div class="row mt-3">
             <div class="col-md-8 mx-auto div-botones">
-                <button class="btn btn-light btn-lg mx-1 mt-1" *ngFor="let boton of arrayDeBotones" (click)="verRespuesta(boton)">{{ boton }}</button>
+                <button class="btn btn-light btn-lg mx-1 mt-1" *ngFor="let boton of arrayDeBotones"
+                    (click)="verRespuesta(boton)">{{ boton }}</button>
             </div>
         </div>
 
@@ -25,13 +38,13 @@
                 <strong>Aciertos: {{ aciertos }}</strong>
             </div>
         </div>
-        
+
         <div *ngIf="!rondaIniciada">
             <div class="d-grid gap-2 col-6 mx-auto mt-2">
                 <button (click)="empezarJuego()" class="btn btn-danger">Jugar otra vez</button>
-              </div>
+            </div>
         </div>
-        
+
     </div>
 </div>
 
