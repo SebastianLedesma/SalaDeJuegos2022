@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Mensaje } from '../componentes/chat/interface/mensaje.interface';
 import { Registro } from '../interfaces/registro';
+import { Encuesta } from '../componentes/home/encuesta/interfaces/encuesta.interface';
 
 @Injectable({
   providedIn: 'root'
