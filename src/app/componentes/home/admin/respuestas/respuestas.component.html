@@ -1,0 +1,28 @@
+<h3 class="text-white">Respuestas de las encuestas</h3>
+
+<div *ngIf="encuestas.length > 0;else noHayResultados" class="row table-wrapper">
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Mejoras</th>
+            <th scope="col">Mail</th>
+            <th scope="col">Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let encuesta of encuestas">
+            <th scope="row">{{ encuesta.formulario.nombre }} {{ encuesta.formulario.apellido }}</th>
+            <td>{{ encuesta.formulario.edad }}</td>
+            <td>{{ encuesta.formulario.mejoras }}</td>
+            <td>{{ encuesta.usuario }}</td>
+            <td>{{ encuesta.formulario.telefono }}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #noHayResultados>
+    <p class="text-white">No hay encuestas para mostrar.</p>
+</ng-template>
