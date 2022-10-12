@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 

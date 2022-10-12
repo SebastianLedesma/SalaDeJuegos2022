@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  chatActivado:boolean = false;
+  textoBoton:string='Mostrar chat';
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  accionarChat(){
+    this.chatActivado = !this.chatActivado;
+    this.textoBoton = this.chatActivado ? 'Ocultar chat' : 'Mostrar chat';
   }
 
 }

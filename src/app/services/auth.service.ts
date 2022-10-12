@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from '@firebase/app-compat';
 
 
 @Injectable({
@@ -20,11 +20,7 @@ export class AuthService {
 
 
   async registrarUsuario(email: string, password: string) {
-    try {
-      return await this._authService.createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      return error;
-    }
+    return await this._authService.createUserWithEmailAndPassword(email, password);
   }
 
 
@@ -35,6 +31,14 @@ export class AuthService {
 
   getInfoUsuarioLogueado(){
     return this._authService.authState;
+  }
+
+
+  getIdUsuario(){
+    const auth = getAuth();
+    const id = auth.currentUser?.uid;
+
+    return id;
   }
 
 }

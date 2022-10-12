@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FirebaseError } from '@angular/fire/app';
+import { Usuario } from './interfaces/usuario.interface';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-registro',
@@ -10,13 +12,19 @@ import { FirebaseError } from '@angular/fire/app';
 })
 export class RegistroComponent {
 
+  nuevoUsuario:Usuario={
+    uuid:'',
+    correo:'',
+    perfil:'user'
+  }
+
   email:string='';
   password:string='';
   passwordAConfirmar='';
   datosValidos:boolean = true;
   mensajeError = '';
 
-  constructor(private _authService: AuthService,private router:Router) { }
+  constructor(private _authService: AuthService,private router:Router,private _firestoreService: FirestoreService) { }
 
   limpiarForm():void{
     this.email='';
@@ -38,24 +46,37 @@ export class RegistroComponent {
     console.log(this.validarPassword());
   }
 
-  registrarUsuario(){
-    this.mensajeError = '';
+  async registrarUsuario(){
+    
+    this.mensajeError = ''
     if(this.validarPassword()){
-      this._authService.registrarUsuario(this.email,this.password)
-      .then(resp => {
-        if(resp instanceof FirebaseError){
-          //console.log(resp.message);
-          this.mensajeError = resp.message;
-        }else{
+      const resp = await this._authService.registrarUsuario(this.email,this.password)
+      .catch( (error:FirebaseError) => {
+        this.mensajeError = error.message;
+      }); 
+
+      if(resp){
+        this._firestoreService.agregarNuevoUsuario(this.crearUsuario(resp.user!.uid),'usuarios',resp.user!.uid).then(resp => {
           this.datosValidos=true;
           this.router.navigate(['/home']);
-        } 
-      }); 
+        })
+        .catch( error => console.log(error));
+      }
+
     }else{
       this.mensajeError = 'Verifique los datos ingresados.';
       this.datosValidos = false;
     }
-   
+  }
+
+  crearUsuario(id:string):Usuario{
+    this.nuevoUsuario = {
+      uuid: id,
+      correo: this.email,
+      perfil:'user'
+    }
+
+    return this.nuevoUsuario;
   }
   
 }

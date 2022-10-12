@@ -9,6 +9,7 @@ import { EncuentraElFantasmaComponent } from './juegos/encuentra-el-fantasma/enc
 import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RespuestasComponent } from './admin/respuestas/respuestas.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AhorcadoComponent,
     EncuentraElFantasmaComponent,
     PreguntadoComponent,
-    EncuestaComponent
+    EncuestaComponent,
+    RespuestasComponent
   ],
   imports: [
     CommonModule,

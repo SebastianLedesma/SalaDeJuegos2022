@@ -8,6 +8,9 @@ import { EncuentraElFantasmaComponent } from './juegos/encuentra-el-fantasma/enc
 import { PreguntadoComponent } from './juegos/preguntado/preguntado.component';
 import { QuienSoyComponent } from '../quien-soy/quien-soy.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
+import { UsuarioGuard } from './guard/usuario.guard';
+import { RespuestasComponent } from './admin/respuestas/respuestas.component';
+import { AdminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
   {
@@ -37,7 +40,13 @@ const routes: Routes = [
       },
       {
         path:'encuesta',
-        component: EncuestaComponent
+        component: EncuestaComponent,
+        canActivate:[UsuarioGuard]
+      },
+      {
+        path:'respuestas',
+        component: RespuestasComponent,
+        canActivate:[AdminGuard]
       }
     ]
   }
